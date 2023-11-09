@@ -1,0 +1,447 @@
+USE [customer]
+GO
+/****** Object:  Table [dbo].[approval_info]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[approval_info](
+	[approval_id] [int] IDENTITY(1,1) NOT NULL,
+	[approval_data] [nvarchar](max) NULL,
+	[approval_type] [nvarchar](100) NOT NULL,
+	[approval_status] [nvarchar](50) NOT NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [approval_info_pkey] PRIMARY KEY CLUSTERED 
+(
+	[approval_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[auth_permission]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[auth_permission](
+	[permission_id] [int] IDENTITY(1,1) NOT NULL,
+	[permission_name] [nvarchar](255) NOT NULL,
+	[permission_description] [nvarchar](500) NOT NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [auth_permission_pkey] PRIMARY KEY CLUSTERED 
+(
+	[permission_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[auth_roles]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[auth_roles](
+	[role_id] [int] IDENTITY(1,1) NOT NULL,
+	[role_name] [nvarchar](255) NOT NULL,
+	[role_description] [nvarchar](500) NOT NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [auth_roles_pkey] PRIMARY KEY CLUSTERED 
+(
+	[role_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[auth_roles_permission]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[auth_roles_permission](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[role_id] [int] NULL,
+	[permission_id] [int] NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [auth_roles_permission_pkey] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[auth_user]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[auth_user](
+	[user_id] [int] IDENTITY(1,1) NOT NULL,
+	[username] [nvarchar](100) NOT NULL,
+	[password] [nvarchar](255) NOT NULL,
+	[email] [nvarchar](255) NOT NULL,
+	[first_name] [nvarchar](255) NULL,
+	[middle_name] [nvarchar](255) NULL,
+	[last_name] [nvarchar](255) NULL,
+	[phone] [nvarchar](255) NULL,
+	[is_active] [bit] NOT NULL,
+	[mfa_enabled] [bit] NOT NULL,
+	[is_email_verified] [bit] NOT NULL,
+	[is_phone_verified] [bit] NOT NULL,
+	[last_login] [datetime2](7) NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [auth_user_pkey] PRIMARY KEY CLUSTERED 
+(
+	[user_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[auth_user_roles]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[auth_user_roles](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NULL,
+	[role_id] [int] NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [auth_user_roles_pkey] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[cors_allow_list]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[cors_allow_list](
+	[cors_id] [int] IDENTITY(1,1) NOT NULL,
+	[cors_value] [nvarchar](500) NOT NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [cors_allow_list_pkey] PRIMARY KEY CLUSTERED 
+(
+	[cors_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[documentation_category_info]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[documentation_category_info](
+	[category_id] [int] IDENTITY(1,1) NOT NULL,
+	[category_name] [nvarchar](500) NOT NULL,
+	[category_details] [nvarchar](2000) NOT NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [documentation_category_info_pkey] PRIMARY KEY CLUSTERED 
+(
+	[category_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[faq_info]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[faq_info](
+	[faq_id] [int] IDENTITY(1,1) NOT NULL,
+	[faq_question] [nvarchar](max) NULL,
+	[faq_answer] [nvarchar](max) NULL,
+	[faq_tags] [nvarchar](max) NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [faq_info_pkey] PRIMARY KEY CLUSTERED 
+(
+	[faq_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[notification_info]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[notification_info](
+	[notification_id] [int] IDENTITY(1,1) NOT NULL,
+	[notification_type] [nvarchar](250) NOT NULL,
+	[notification_msg] [nvarchar](max) NULL,
+	[notification_status] [nvarchar](250) NOT NULL,
+	[user_id] [int] NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [notification_info_pkey] PRIMARY KEY CLUSTERED 
+(
+	[notification_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[support_and_feedback]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[support_and_feedback](
+	[ticket_id] [int] IDENTITY(1,1) NOT NULL,
+	[creator_name] [nvarchar](500) NOT NULL,
+	[creator_number] [nvarchar](20) NOT NULL,
+	[creator_email] [nvarchar](100) NOT NULL,
+	[creator_issue] [nvarchar](max) NULL,
+	[ticket_type] [nvarchar](100) NOT NULL,
+	[ticket_status] [nvarchar](100) NULL,
+	[ticket_solved_by] [nvarchar](100) NULL,
+	[ticket_solved_on] [datetime2](7) NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [support_and_feedback_pkey] PRIMARY KEY CLUSTERED 
+(
+	[ticket_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_graph_layout]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_graph_layout](
+	[layout_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NULL,
+	[layout_kpi_info] [nvarchar](max) NULL,
+	[layout_info] [nvarchar](max) NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [user_graph_layout_pkey] PRIMARY KEY CLUSTERED 
+(
+	[layout_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[visualization_kpi]    Script Date: 09-11-2023 11:32:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[visualization_kpi](
+	[kpi_id] [int] IDENTITY(1,1) NOT NULL,
+	[kpi_name] [nvarchar](500) NOT NULL,
+	[kpi_details] [nvarchar](max) NULL,
+	[kpi_dashboard_status] [bit] NOT NULL,
+	[kpi_insight_status] [bit] NOT NULL,
+	[created_on] [datetime2](7) NOT NULL,
+	[modified_on] [datetime2](7) NOT NULL,
+ CONSTRAINT [visualization_kpi_pkey] PRIMARY KEY CLUSTERED 
+(
+	[kpi_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[auth_permission] ON 
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (1, N'setDefaultKpi', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:20:01.4135140' AS DateTime2), CAST(N'2023-10-17T08:20:01.4135140' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (2, N'viewFeedbackAndSupport', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:25:14.2616930' AS DateTime2), CAST(N'2023-10-17T08:25:14.2616930' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (3, N'createFaq', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:26:11.6674670' AS DateTime2), CAST(N'2023-10-17T08:26:11.6674670' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (4, N'approveUser', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:36:55.3784930' AS DateTime2), CAST(N'2023-10-17T08:36:55.3784930' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (5, N'viewRoles', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:37:30.1609260' AS DateTime2), CAST(N'2023-10-17T08:37:30.1609260' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (6, N'modifyRole', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:37:50.6411210' AS DateTime2), CAST(N'2023-10-17T08:37:50.6411210' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (7, N'deleteRole', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:38:03.0174620' AS DateTime2), CAST(N'2023-10-17T08:38:03.0174620' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (8, N'createRole', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:38:17.4876280' AS DateTime2), CAST(N'2023-10-17T08:38:17.4876280' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (9, N'viewPermissions', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:38:30.2824460' AS DateTime2), CAST(N'2023-10-17T08:38:30.2824460' AS DateTime2))
+GO
+INSERT [dbo].[auth_permission] ([permission_id], [permission_name], [permission_description], [created_on], [modified_on]) VALUES (10, N'manageDocumentationCategory', N'Permission For Set Default KPI', CAST(N'2023-10-17T08:41:04.7714150' AS DateTime2), CAST(N'2023-10-17T08:41:04.7714150' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[auth_permission] OFF
+GO
+SET IDENTITY_INSERT [dbo].[auth_roles] ON 
+GO
+INSERT [dbo].[auth_roles] ([role_id], [role_name], [role_description], [created_on], [modified_on]) VALUES (1, N'Admin', N'Admin Role has access in everything.', CAST(N'2023-10-17T07:55:08.2488200' AS DateTime2), CAST(N'2023-10-17T07:55:08.2488200' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[auth_roles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[auth_roles_permission] ON 
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (1, 1, 1, CAST(N'2023-10-17T08:23:58.9054520' AS DateTime2), CAST(N'2023-10-17T08:23:58.9054520' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (2, 1, 2, CAST(N'2023-10-17T08:25:14.2616930' AS DateTime2), CAST(N'2023-10-17T08:25:14.2616930' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (3, 1, 3, CAST(N'2023-10-17T08:26:11.6674670' AS DateTime2), CAST(N'2023-10-17T08:26:11.6674670' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (4, 1, 4, CAST(N'2023-10-17T08:37:12.9890950' AS DateTime2), CAST(N'2023-10-17T08:37:12.9890950' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (5, 1, 5, CAST(N'2023-10-17T08:37:30.1609260' AS DateTime2), CAST(N'2023-10-17T08:37:30.1609260' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (6, 1, 6, CAST(N'2023-10-17T08:37:50.6411210' AS DateTime2), CAST(N'2023-10-17T08:37:50.6411210' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (7, 1, 7, CAST(N'2023-10-17T08:38:03.0174620' AS DateTime2), CAST(N'2023-10-17T08:38:03.0174620' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (8, 1, 8, CAST(N'2023-10-17T08:38:17.4876280' AS DateTime2), CAST(N'2023-10-17T08:38:17.4876280' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (9, 1, 9, CAST(N'2023-10-17T08:38:30.2824460' AS DateTime2), CAST(N'2023-10-17T08:38:30.2824460' AS DateTime2))
+GO
+INSERT [dbo].[auth_roles_permission] ([id], [role_id], [permission_id], [created_on], [modified_on]) VALUES (10, 1, 10, CAST(N'2023-10-17T08:41:04.7714150' AS DateTime2), CAST(N'2023-10-17T08:41:04.7714150' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[auth_roles_permission] OFF
+GO
+SET IDENTITY_INSERT [dbo].[auth_user] ON 
+GO
+INSERT [dbo].[auth_user] ([user_id], [username], [password], [email], [first_name], [middle_name], [last_name], [phone], [is_active], [mfa_enabled], [is_email_verified], [is_phone_verified], [last_login], [created_on], [modified_on]) VALUES (1, N'demo@baar.ai', N'$2b$10$diHE7AwwH/nAwDwwK1cC/edfzwulKZmdqavv9mco4Ql/gfBv4WAZe', N'demo@baar.ai', N'demo', N'', N'baar', N'9999999999', 1, 1, 0, 0, NULL, CAST(N'2023-10-17T10:43:45.9711650' AS DateTime2), CAST(N'2023-10-17T10:52:00.3999210' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[auth_user] OFF
+GO
+SET IDENTITY_INSERT [dbo].[auth_user_roles] ON 
+GO
+INSERT [dbo].[auth_user_roles] ([id], [user_id], [role_id], [created_on], [modified_on]) VALUES (1, 1, 1, CAST(N'2023-10-17T10:56:27.5225840' AS DateTime2), CAST(N'2023-10-17T10:56:27.5225840' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[auth_user_roles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[cors_allow_list] ON 
+GO
+INSERT [dbo].[cors_allow_list] ([cors_id], [cors_value], [created_on], [modified_on]) VALUES (1, N'http://127.0.0.1:7000', CAST(N'2023-10-17T10:58:00.1924800' AS DateTime2), CAST(N'2023-10-17T10:58:00.1924800' AS DateTime2))
+GO
+INSERT [dbo].[cors_allow_list] ([cors_id], [cors_value], [created_on], [modified_on]) VALUES (2, N'http://localhost:7000', CAST(N'2023-10-17T10:58:16.7179440' AS DateTime2), CAST(N'2023-10-17T10:58:16.7179440' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[cors_allow_list] OFF
+GO
+SET IDENTITY_INSERT [dbo].[user_graph_layout] ON 
+GO
+INSERT [dbo].[user_graph_layout] ([layout_id], [user_id], [layout_kpi_info], [layout_info], [created_on], [modified_on]) VALUES (1, 1, N'[3,4,5,6,8,9,10,11,2]', N'{"lg":[{"w":4,"h":2,"x":4,"y":2,"i":"3","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":4,"y":0,"i":"4","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":4,"y":4,"i":"5","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":8,"y":0,"i":"6","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":4,"y":6,"i":"8","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":8,"y":2,"i":"9","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":0,"y":0,"i":"10","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":4,"y":8,"i":"11","minW":2,"minH":1,"moved":false,"static":false},{"w":4,"h":2,"x":8,"y":4,"i":"2","minW":2,"minH":1,"moved":false,"static":false}],"md":[{"h":2,"i":"3","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"4","w":6,"x":4,"y":0,"minH":1,"minW":2},{"h":2,"i":"5","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"6","w":6,"x":4,"y":0,"minH":1,"minW":2},{"h":2,"i":"8","w":6,"x":4,"y":0,"minH":1,"minW":2},{"h":2,"i":"9","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"10","w":6,"x":4,"y":0,"minH":1,"minW":2},{"h":2,"i":"11","w":4,"x":0,"y":0,"minH":1,"minW":2},{"w":6,"h":2,"x":8,"y":8,"i":"2","minW":2,"minH":1}],"sm":[{"h":2,"i":"3","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"4","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"5","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"6","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"8","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"9","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"10","w":6,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"11","w":6,"x":0,"y":0,"minH":1,"minW":2},{"w":6,"h":2,"x":0,"y":16,"i":"2","minW":2,"minH":1}],"xs":[{"h":2,"i":"3","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"4","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"5","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"6","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"8","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"9","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"10","w":4,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"11","w":4,"x":0,"y":0,"minH":1,"minW":2},{"w":4,"h":2,"x":0,"y":16,"i":"2","minW":2,"minH":1}],"xxs":[{"h":2,"i":"3","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"4","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"5","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"6","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"8","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"9","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"10","w":2,"x":0,"y":0,"minH":1,"minW":2},{"h":2,"i":"11","w":2,"x":0,"y":0,"minH":1,"minW":2},{"w":2,"h":2,"x":0,"y":null,"i":"2","minW":2,"minH":1}]}', CAST(N'2023-10-17T11:09:04.4993010' AS DateTime2), CAST(N'2023-11-08T17:18:16.0100000' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[user_graph_layout] OFF
+GO
+SET IDENTITY_INSERT [dbo].[visualization_kpi] ON 
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (1, N'Graph 1', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:00.1923170' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (2, N'Graph 2', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:02.9460610' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (3, N'Graph 3', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:08.2541460' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (4, N'Graph 4', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:10.2979000' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (5, N'Graph 5', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:12.4010880' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (6, N'Graph 6', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:14.5996740' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (7, N'Graph 7', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:17.0881340' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (8, N'Graph 8', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:22.0748880' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (9, N'Graph 9', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:23.8095750' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (10, N'Graph 10', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:19.9157350' AS DateTime2))
+GO
+INSERT [dbo].[visualization_kpi] ([kpi_id], [kpi_name], [kpi_details], [kpi_dashboard_status], [kpi_insight_status], [created_on], [modified_on]) VALUES (11, N'Graph 11', NULL, 1, 0, CAST(N'2023-10-17T11:06:23.3390570' AS DateTime2), CAST(N'2023-10-17T11:07:25.4273410' AS DateTime2))
+GO
+SET IDENTITY_INSERT [dbo].[visualization_kpi] OFF
+GO
+ALTER TABLE [dbo].[approval_info] ADD  DEFAULT ('PENDING') FOR [approval_status]
+GO
+ALTER TABLE [dbo].[approval_info] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[approval_info] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[auth_permission] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[auth_permission] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[auth_roles] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[auth_roles] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[auth_roles_permission] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[auth_roles_permission] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[auth_user] ADD  DEFAULT ((1)) FOR [is_active]
+GO
+ALTER TABLE [dbo].[auth_user] ADD  DEFAULT ((1)) FOR [mfa_enabled]
+GO
+ALTER TABLE [dbo].[auth_user] ADD  DEFAULT ((0)) FOR [is_email_verified]
+GO
+ALTER TABLE [dbo].[auth_user] ADD  DEFAULT ((0)) FOR [is_phone_verified]
+GO
+ALTER TABLE [dbo].[auth_user] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[auth_user] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[auth_user_roles] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[auth_user_roles] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[cors_allow_list] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[cors_allow_list] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[documentation_category_info] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[documentation_category_info] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[faq_info] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[faq_info] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[notification_info] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[notification_info] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[support_and_feedback] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[support_and_feedback] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[user_graph_layout] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[user_graph_layout] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[visualization_kpi] ADD  DEFAULT ((0)) FOR [kpi_dashboard_status]
+GO
+ALTER TABLE [dbo].[visualization_kpi] ADD  DEFAULT ((0)) FOR [kpi_insight_status]
+GO
+ALTER TABLE [dbo].[visualization_kpi] ADD  DEFAULT (getdate()) FOR [created_on]
+GO
+ALTER TABLE [dbo].[visualization_kpi] ADD  DEFAULT (getdate()) FOR [modified_on]
+GO
+ALTER TABLE [dbo].[auth_roles_permission]  WITH CHECK ADD  CONSTRAINT [auth_roles_permission_permission_id_fkey] FOREIGN KEY([permission_id])
+REFERENCES [dbo].[auth_permission] ([permission_id])
+GO
+ALTER TABLE [dbo].[auth_roles_permission] CHECK CONSTRAINT [auth_roles_permission_permission_id_fkey]
+GO
+ALTER TABLE [dbo].[auth_roles_permission]  WITH CHECK ADD  CONSTRAINT [auth_roles_permission_role_id_fkey] FOREIGN KEY([role_id])
+REFERENCES [dbo].[auth_roles] ([role_id])
+GO
+ALTER TABLE [dbo].[auth_roles_permission] CHECK CONSTRAINT [auth_roles_permission_role_id_fkey]
+GO
+ALTER TABLE [dbo].[auth_user_roles]  WITH CHECK ADD  CONSTRAINT [auth_user_roles_role_id_fkey] FOREIGN KEY([role_id])
+REFERENCES [dbo].[auth_roles] ([role_id])
+GO
+ALTER TABLE [dbo].[auth_user_roles] CHECK CONSTRAINT [auth_user_roles_role_id_fkey]
+GO
+ALTER TABLE [dbo].[auth_user_roles]  WITH CHECK ADD  CONSTRAINT [auth_user_roles_user_id_fkey] FOREIGN KEY([user_id])
+REFERENCES [dbo].[auth_user] ([user_id])
+GO
+ALTER TABLE [dbo].[auth_user_roles] CHECK CONSTRAINT [auth_user_roles_user_id_fkey]
+GO
+ALTER TABLE [dbo].[notification_info]  WITH CHECK ADD  CONSTRAINT [notification_info_user_id_fkey] FOREIGN KEY([user_id])
+REFERENCES [dbo].[auth_user] ([user_id])
+GO
+ALTER TABLE [dbo].[notification_info] CHECK CONSTRAINT [notification_info_user_id_fkey]
+GO
+ALTER TABLE [dbo].[user_graph_layout]  WITH CHECK ADD  CONSTRAINT [user_graph_layout_user_id_fkey] FOREIGN KEY([user_id])
+REFERENCES [dbo].[auth_user] ([user_id])
+GO
+ALTER TABLE [dbo].[user_graph_layout] CHECK CONSTRAINT [user_graph_layout_user_id_fkey]
+GO
