@@ -12,3 +12,23 @@ FROM
     dbo.auth_roles AS ar
     INNER JOIN dbo.auth_user_roles AS aur ON ar.role_id = aur.role_id
     INNER JOIN dbo.auth_user AS au ON au.user_id = aur.user_id;
+
+
+SELECT 
+    au.email,
+    ar.role_id,
+    STUFF((
+        SELECT ',' + ap.permission_name
+        FROM ${tenant}.auth_user_roles AS aur_inner
+        INNER JOIN ${tenant}.auth_roles_permission AS arp_inner ON arp_inner.role_id = aur_inner.role_id
+        INNER JOIN ${tenant}.auth_permission AS ap ON ap.permission_id = arp_inner.permission_id
+        WHERE aur_inner.user_id = au.user_id AND aur_inner.role_id = ar.role_id
+        FOR XML PATH('')), 1, 1, '') AS permission
+FROM 
+    ${tenant}.auth_user_roles AS aur
+    INNER JOIN ${tenant}.auth_user AS au ON au.user_id = aur.user_id
+    INNER JOIN ${tenant}.auth_roles AS ar ON ar.role_id = aur.role_id
+WHERE 
+    au.user_id = ${token_data[1]}
+GROUP BY 
+    au.email, ar.role_id, au.user_id;
